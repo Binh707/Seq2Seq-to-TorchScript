@@ -85,7 +85,7 @@ class CacheT5Decoder(torch.nn.Module):
 
 
 class T5Seq2Seq(torch.nn.Module):
-    def __init__(self, pretrain_path = "VietAI/vit5-base", prompt_length = 256, enocder_num_block = 12):
+    def __init__(self, pretrain_path = "VietAI/vit5-base", prompt_length = 256, encoder_num_blocks = 12):
         super(T5Seq2Seq, self).__init__()
 
         self.pad_token_id = 0
@@ -98,7 +98,7 @@ class T5Seq2Seq(torch.nn.Module):
         dummy_de_ids = torch.ones([1, 1], dtype = torch.long)
         dummy_hidden_states = torch.ones([1, self.prompt_length, 768], dtype = torch.float) * 0.1
         dummy_past_key_values = init_past_key_values(encoder_ids_len = self.prompt_length,
-                                                     decoder_ids_len = 1, encoder_num_blocks = enocder_num_block)
+                                                     decoder_ids_len = 1, encoder_num_blocks = encoder_num_blocks)
 
         # define encoder & decoder
         self.encoder = torch.jit.trace(T5Encoder(pretrain_model),
@@ -111,6 +111,7 @@ class T5Seq2Seq(torch.nn.Module):
 
     def forward(self, encoder_input_ids, encoder_attention_mask, max_length):
         batch_size = encoder_input_ids.shape[0]
+        pad_token_id = self.pad_token_id
         # compute encoder hidden state
         hidden_states = self.encoder(encoder_input_ids, encoder_attention_mask)
 
@@ -129,7 +130,6 @@ class T5Seq2Seq(torch.nn.Module):
         # looping to generate
         eos_token_id = [self.eos_token_id]
         eos_token_id_tensor = torch.tensor(eos_token_id, dtype = torch.long)
-        pad_token_id = self.pad_token_id
         unfinished_sequences = torch.ones(batch_size, dtype=torch.long)
         this_peer_finished = False
 

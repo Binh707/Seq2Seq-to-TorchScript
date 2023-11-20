@@ -7,7 +7,7 @@ def args_parser():
     parser.add_argument("--checkpoint_path", required=True, type=str)
     parser.add_argument("--encoder_num_blocks", required=True, type=int)
     parser.add_argument("--prompt_length", required=True, type=int)
-    parser.add_argument("--ouput_path", required=True, type=str)
+    parser.add_argument("--output_path", required=True, type=str)
 
     args = parser.parse_args()
     return args
