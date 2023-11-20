@@ -5,7 +5,7 @@ This repository contains scripts to export T5 model to torchscript (cache mode) 
 # How to use?
 ## Step 1: Setup
 ```
-!git clone https://github.com/NguyenThaiHoc1/CustomKnowledgeGraphEmbedding.git
+!git clone https://github.com/Binh707/Export-T5-to-TorchScript-ONNX.git
 ```
 ```
 !pip install -r requirements.txt
@@ -14,7 +14,7 @@ This repository contains scripts to export T5 model to torchscript (cache mode) 
 ## Step 2: Run scripts
 To export to torchscript:
 ```
-!python torchscript.py --pretrain_path "VietAI/vit5-base" --prompt_length 256 --encoder_num_blocks 12
+!python export_torchscript.py --pretrain_path "VietAI/vit5-base" --prompt_length 256 --encoder_num_blocks 12
 ```
 
 To export to onnx:
