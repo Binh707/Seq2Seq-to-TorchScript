@@ -3,11 +3,11 @@ import torch
 from models import T5Seq2Seq
 
 def args_parser():
-    parser = argparse.ArgumentParser(description="Training ...")
+    parser = argparse.ArgumentParser(description="Exporting ...")
     parser.add_argument("--checkpoint_path", required=True, type=str)
     parser.add_argument("--encoder_num_blocks", required=True, type=int)
     parser.add_argument("--prompt_length", required=True, type=int)
-    parser.add_argument("--ouput_path", required=True, type=str)
+    parser.add_argument("--output_path", required=True, type=str)
 
     args = parser.parse_args()
     return args
