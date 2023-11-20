@@ -1,0 +1,6 @@
+transformers==4.35.2
+sentencepiece==0.1.99
+numpy==1.23.5
+onnx==1.15.0
+onnxruntime==1.16.2
+torch==2.1.0
