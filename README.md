@@ -1,9 +1,14 @@
+# T5 MODEL EXPORTER
+
 This repository contains scripts to export T5 model to torchscript (cache mode) or onnx (non cache mode).
 
 # How to use?
-## Step 1: Clone project
+## Step 1: Setup
 ```
 !git clone https://github.com/NguyenThaiHoc1/CustomKnowledgeGraphEmbedding.git
+```
+```
+!pip install -r requirements.txt
 ```
 
 ## Step 2: Run scripts
