@@ -14,15 +14,13 @@ pip install -r requirements.txt
 ## Step 2: Run scripts
 To export to torchscript:
 ```
-python export_torchscript.py 
---checkpoint_path "VietAI/vit5-base" \
+python export_to_torchscript.py 
+--checkpoint_path 'VietAI/vit5-base' \
+--model_type 'T5' \
 --encoder_num_blocks 12 \
 --num_heads 12 \
 --embed_size_per_head 64 \
---output_path "./T5.pt"
-```
-
-To export to onnx:
-```
-python export_onnx.py --checkpoint_path "VietAI/vit5-base" --prompt_length 256 --encoder_num_blocks 12 --output_path "./T5.onnx"
+--embeddings_size 768 \
+--device 'cpu' \
+--output_path './T5.pt'
 ```
