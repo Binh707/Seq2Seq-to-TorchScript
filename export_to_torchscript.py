@@ -1,6 +1,7 @@
 import argparse
 import torch
-from T5_modules  import T5Seq2Seq
+from T5_modules import T5Seq2Seq
+from Seamless_M4T_modules import SeamlessSeq2Seq
 
 def args_parser():
     parser = argparse.ArgumentParser(description="Exporting ...")
@@ -22,8 +23,18 @@ if __name__ == '__main__':
                           encoder_num_blocks=args.encoder_num_blocks,
                           num_heads=args.num_heads,
                           embed_size_per_head=args.embed_size_per_head,
-                          embeddings_size=args.embedding_size,
+                          embedding_size=args.embedding_size,
                           device=args.device)
+        scripted_model = torch.jit.script(model)
+        scripted_model.save(args.output_path)
+
+    elif args.model_type == 'SeamlessM4T':
+        model = SeamlessSeq2Seq(pretrain_path=args.checkpoint_path,
+                                encoder_num_blocks=args.encoder_num_blocks,
+                                num_heads=args.num_heads,
+                                embed_size_per_head=args.embed_size_per_head,
+                                embedding_size=args.embedding_size,
+                                device=args.device)
         scripted_model = torch.jit.script(model)
         scripted_model.save(args.output_path)
     else:

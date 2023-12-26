@@ -12,7 +12,7 @@ This repository contains scripts to export T5 model to torchscript (cache mode) 
 ```
 
 ## Step 2: Run scripts
-To export to torchscript:
+To export T5 to torchscript:
 ```
 !python export_to_torchscript.py \
 --checkpoint_path 'VietAI/vit5-base' \
@@ -22,5 +22,19 @@ To export to torchscript:
 --embed_size_per_head 64 \
 --embedding_size 768 \
 --device 'cpu' \
---output_path './T5.pt'
+--output_path './t5.pt'
+```
+
+
+To export SeamlessM4T to torchscript:
+```
+!python export_to_torchscript.py \
+--checkpoint_path 'facebook/hf-seamless-m4t-medium' \
+--model_type 'SeamlessM4T' \
+--encoder_num_blocks 12 \
+--num_heads 16 \
+--embed_size_per_head 64 \
+--embedding_size 1024 \
+--device 'cpu' \
+--output_path './seamlessm4t.pt'
 ```
