@@ -5,7 +5,7 @@ This repository contains scripts to export T5 model to torchscript (cache mode) 
 # How to use?
 ## Step 1: Setup
 ```
-!git clone https://github.com/Binh707/Export-T5-to-TorchScript-ONNX.git
+!git clone https://github.com/Binh707/Seq2Seq-to-TorchScript.git
 ```
 ```
 !pip install -r requirements.txt
