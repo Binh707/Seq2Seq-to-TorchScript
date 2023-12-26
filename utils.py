@@ -13,11 +13,14 @@ def inputs_to_test_accuracy(tokenizer = None, text_inputs = None, max_length = 2
     return tokenized_batch.input_ids, tokenized_batch.attention_mask
 
 
-def init_past_key_values(encoder_ids_len = 32, decoder_ids_len = 1, encoder_num_blocks = 12):
-    ten1 = torch.ones([1, 12, decoder_ids_len, 64], dtype = torch.float) * 0.1
-    ten2 = torch.ones([1, 12, decoder_ids_len, 64], dtype = torch.float) * 0.1
-    ten3 = torch.ones([1, 12, encoder_ids_len, 64], dtype = torch.float) * 0.1
-    ten4 = torch.ones([1, 12, encoder_ids_len, 64], dtype = torch.float) * 0.1
+def init_past_key_values(encoder_ids_len = 32, decoder_ids_len = 1,
+                         encoder_num_blocks = 12, num_heads = 12,
+                         embed_size_per_head = 64):
+    batch_size = 1
+    ten1 = torch.ones([batch_size, num_heads, decoder_ids_len, embed_size_per_head], dtype = torch.float) * 0.1
+    ten2 = torch.ones([batch_size, num_heads, decoder_ids_len, embed_size_per_head], dtype = torch.float) * 0.1
+    ten3 = torch.ones([batch_size, num_heads, encoder_ids_len, embed_size_per_head], dtype = torch.float) * 0.1
+    ten4 = torch.ones([batch_size, num_heads, encoder_ids_len, embed_size_per_head], dtype = torch.float) * 0.1
 
     per_layer = (ten1, ten2, ten3, ten4)
     past_key_values = tuple([per_layer for i in range(encoder_num_blocks)])

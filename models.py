@@ -85,20 +85,22 @@ class CacheT5Decoder(torch.nn.Module):
 
 
 class T5Seq2Seq(torch.nn.Module):
-    def __init__(self, pretrain_path = "VietAI/vit5-base", prompt_length = 256, encoder_num_blocks = 12):
+    def __init__(self, pretrain_path = "VietAI/vit5-base", encoder_num_blocks = 12,
+                 num_heads = 12, embed_size_per_head = 64):
         super(T5Seq2Seq, self).__init__()
 
         self.pad_token_id = 0
         self.eos_token_id = 1
-        self.prompt_length = prompt_length
+        self.prompt_length = 32
         pretrain_model = AutoModelForSeq2SeqLM.from_pretrained(pretrain_path)
 
         # init dumpy input for tracing
         dummy_en_ids = torch.ones([1, self.prompt_length], dtype = torch.long)
         dummy_de_ids = torch.ones([1, 1], dtype = torch.long)
         dummy_hidden_states = torch.ones([1, self.prompt_length, 768], dtype = torch.float) * 0.1
-        dummy_past_key_values = init_past_key_values(encoder_ids_len = self.prompt_length,
-                                                     decoder_ids_len = 1, encoder_num_blocks = encoder_num_blocks)
+        dummy_past_key_values = init_past_key_values(encoder_ids_len = self.prompt_length, decoder_ids_len = 1,
+                                                     encoder_num_blocks = encoder_num_blocks, num_heads = num_heads,
+                                                     embed_size_per_head = embed_size_per_head)
 
         # define encoder & decoder
         self.encoder = torch.jit.trace(T5Encoder(pretrain_model),
